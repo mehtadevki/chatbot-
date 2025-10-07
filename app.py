@@ -11,7 +11,7 @@ def home():
 def chat():
   try:
         user_msg = request.get_json().get("message", "").lower()
-    except:
+  except:
         return jsonify({"message": "Error: could not read message."})
  
 
@@ -52,5 +52,6 @@ def chat():
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 5000))
     app.run(host="0.0.0.0", port=port)
+
 
 
