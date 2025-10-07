@@ -9,13 +9,13 @@ def home():
 
 @app.route("/chat", methods=["POST"])
 def chat():
-  try:
+    # Get JSON from POST request
+    try:
         user_msg = request.get_json().get("message", "").lower()
-  except:
+    except:
         return jsonify({"message": "Error: could not read message."})
- 
 
-    # Python chatbot logic
+    # Bot logic
     if "hello" in user_msg or "hi" in user_msg:
         bot_msg = "Hello! Welcome to the Airplane Travel Helpdesk. How can I assist you today?"
     elif "ticket" in user_msg or "book" in user_msg:
@@ -49,9 +49,7 @@ def chat():
 
     return jsonify({"message": bot_msg})
 
+
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 5000))
     app.run(host="0.0.0.0", port=port)
-
-
-
