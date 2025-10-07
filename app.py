@@ -1,5 +1,5 @@
 import os
-from flask import Flask, render_template,request, jsonify
+from flask import Flask, render_template, request, jsonify
 
 app = Flask(__name__)
 
@@ -9,7 +9,11 @@ def home():
 
 @app.route("/chat", methods=["POST"])
 def chat():
-    user_msg = request.json.get("message", "").lower()
+  try:
+        user_msg = request.get_json().get("message", "").lower()
+    except:
+        return jsonify({"message": "Error: could not read message."})
+ 
 
     # Python chatbot logic
     if "hello" in user_msg or "hi" in user_msg:
@@ -48,4 +52,5 @@ def chat():
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 5000))
     app.run(host="0.0.0.0", port=port)
+
 
